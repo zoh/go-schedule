@@ -3,7 +3,7 @@ package helpers
 import (
 	"time"
 
-	"github.com/ryankurte/go-schedule/repeat"
+	"github.com/zoh/go-schedule/repeat"
 )
 
 // DefaultEvent implementation provides a standard implementation of the event interface
@@ -58,3 +58,7 @@ func (de *DefaultEvent) GetNextExecution() time.Time { return de.NextRun }
 
 // SetNextExecution sets the next execution time
 func (de *DefaultEvent) SetNextExecution(next time.Time) { de.NextRun = next }
+
+func (de *DefaultEvent) Execute() error {
+	return nil
+}

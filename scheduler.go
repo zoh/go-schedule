@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/ryankurte/go-schedule/repeat"
+	"github.com/zoh/go-schedule/repeat"
 )
 
 // Scheduler implements schedule based events
@@ -12,13 +12,8 @@ type Scheduler struct {
 	storer   Storer
 	tickRate time.Duration
 	lastTick time.Time
-	Out      chan Event
 }
 
-const (
-	// EventBufferSize is the size of the output event buffer
-	EventBufferSize = 1024
-)
 
 // NewScheduler creates a scheduler instance using the provided Storer
 // startTime is used to filter previous events (ie. startTime of 0 will run and update any pending / not executed events)
@@ -29,7 +24,7 @@ func NewScheduler(storer Storer, startTime time.Time, tickRate time.Duration) *S
 		storer:   storer,
 		tickRate: tickRate,
 		lastTick: startTime,
-		Out:      make(chan Event, EventBufferSize),
+		//Out:      make(chan Event, EventBufferSize),
 	}
 }
 
@@ -91,8 +86,12 @@ func (s *Scheduler) evaluate(now time.Time, event Event) (Event, bool) {
 		return event, false
 	}
 
-	// Emit event
-	s.Out <- event
+	// run execute
+	err := event.Execute()
+	if err != nil {
+		log.Printf("[SCHEDULER] error for execute event: %s", err)
+		return event, false
+	}
 
 	// Update run information
 	thisRun := event.GetWhen()

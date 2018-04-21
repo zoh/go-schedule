@@ -3,7 +3,7 @@ package scheduler
 import (
 	"time"
 
-	"github.com/ryankurte/go-schedule/repeat"
+	"github.com/zoh/go-schedule/repeat"
 )
 
 // Storer defines the backing storage implementation required by the scheduler

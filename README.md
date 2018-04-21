@@ -2,9 +2,9 @@
 
 Database (or other storage) backed scheduling module (WIP).
 
-[![Documentation](https://img.shields.io/badge/docs-godoc-blue.svg)](https://godoc.org/github.com/ryankurte/go-schedule)
-[![GitHub tag](https://img.shields.io/github/tag/ryankurte/go-schedule.svg)](https://github.com/ryankurte/go-schedule)
-[![Build Status](https://travis-ci.org/ryankurte/go-schedule.svg?branch=master)](https://travis-ci.org/ryankurte/go-schedule)
+[![Documentation](https://img.shields.io/badge/docs-godoc-blue.svg)](https://godoc.org/github.com/zoh/go-schedule)
+[![GitHub tag](https://img.shields.io/github/tag/zoh/go-schedule.svg)](https://github.com/zoh/go-schedule)
+[![Build Status](https://travis-ci.org/zoh/go-schedule.svg?branch=master)](https://travis-ci.org/zoh/go-schedule)
 
 This is designed to allow user or application scheduling of events (one off or a variety of repetitions) that can be maintained in a datastore for consistency / coherency.
 
@@ -15,7 +15,7 @@ This is designed to allow user or application scheduling of events (one off or a
 ### Creating the scheduler
 ```go
 import (
-    "gopkg.in/ryankurte/go-schedule.v0"
+    "gopkg.in/zoh/go-schedule.v0"
 )
 
 s := scheduler.NewScheduler(storer Storer, startTime time.Time, tickRate time.Duration)
@@ -40,7 +40,23 @@ select {
 ```
 ---
 
-If you have any questions, comments, or suggestions, feel free to open an issue or a pull request.
+## Execute event 
+```go
+
+type MockEvent struct {
+    helpers.DefaultEvent
+}
+
+func (de *MockEvent) Execute() error {
+    log.Println("OK!")
+
+	return nil
+}
+
+type MockStorer struct {
+	Events []*MockEvent
+}
+```
 
 
 

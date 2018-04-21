@@ -3,7 +3,7 @@ package scheduler
 import (
 	"time"
 
-	"github.com/ryankurte/go-schedule/repeat"
+	"github.com/zoh/go-schedule/repeat"
 )
 
 // Event defines the interface that must be implemented by schedulable objects
@@ -21,4 +21,7 @@ type Event interface {
 	SetLastExecution(time.Time)
 	GetNextExecution() time.Time
 	SetNextExecution(time.Time)
+
+	// Execute planning by event action
+	Execute() error
 }
